@@ -33,7 +33,16 @@ constructor(): this("","","",false, LocalDate.now(), Supermercado())
     }
 
     override fun toString(): String {
-        return ""
+        return "$id,$ciudad,$servicioTecnico,$fechaApertura,${supermercado.getRuc()}"
+    }
+    fun getListOfStringFromData(): List<String> {
+        return listOf(
+            "Ciudad: $ciudad",
+            "Direccion: $direccion",
+            "Servicio Tecnico: $servicioTecnico",
+            "Fecha Apertura: $fechaApertura",
+            "Supermercado: ${supermercado.getNombre()}",
+        )
     }
 
 }

@@ -33,5 +33,17 @@ class Supermercado(
         this.sucursales = this.sucursales.filter { it.getId() != sucursales.getId() }.toMutableList()
     }
 
+    public override fun toString(): String {
+        val ids: String = sucursales.map { it.getId()}.joinToString(";")
+        return super.toString()
+    }
+    fun getListOfStringFromData(): List<String>{
+        return listOf(
+            "Nombre: $nombre",
+            "Telefono: $telefono",
+            "Vende Tecnologia: $vendeTecnologia",
+            "Sucursales: ${sucursales.map { it.getCiudad() }}",
+        )
+    }
     }
 
