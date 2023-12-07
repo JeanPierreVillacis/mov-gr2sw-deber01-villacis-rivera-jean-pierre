@@ -50,7 +50,7 @@ class SupermercadoService {
             val supermercadoSplit = it.split(",")
             // get series from an array of ids
             val sucursales= supermercadoSplit[4].split(";")
-                .map { SucursalService.getInstace().getOneWithoutSupermercado(it) }
+                .map { SucursalService.getInstace().getOneWithoutStreamingService(it) }
 
             val validarSucursal = sucursales.filterNotNull()
             return@map Supermercado(
@@ -90,7 +90,7 @@ class SupermercadoService {
         val supermercadoSplit = supermercadoServices.split(",")
         // get series from an array of ids
         val sucursales= supermercadoSplit[4].split(";")
-            .map { SupermercadoServices.getInstance().getOneWithoutStreamingService(it) }
+            .map { SucursalService.getInstace().getOneWithoutStreamingService(it) }
 
         val validarSucursal = sucursales.filterNotNull()
         return Supermercado(
@@ -128,7 +128,7 @@ class SupermercadoService {
             supermercado.getSucursales(),
         )
 
-        this.remove(supermercado.getRuc()))
+        this.remove(supermercado.getRuc())
 
         file.appendText(newSupermercado.toString() + "\n")
 
