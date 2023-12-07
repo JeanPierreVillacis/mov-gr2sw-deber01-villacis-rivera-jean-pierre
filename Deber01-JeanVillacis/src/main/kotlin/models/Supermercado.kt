@@ -1,6 +1,5 @@
 package models
 
-import java.time.LocalDate
 import java.time.LocalDateTime
 
 class Supermercado(
@@ -35,7 +34,7 @@ class Supermercado(
 
     public override fun toString(): String {
         val ids: String = sucursales.map { it.getId()}.joinToString(";")
-        return super.toString()
+       return "$ruc,$nombre,$telefono,$vendeTecnologia,$ids"
     }
     fun getListOfStringFromData(): List<String>{
         return listOf(
