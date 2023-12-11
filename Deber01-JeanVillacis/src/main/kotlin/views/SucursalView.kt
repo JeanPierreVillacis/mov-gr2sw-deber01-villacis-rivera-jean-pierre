@@ -73,99 +73,100 @@ class SucursalView {
             supermercado = supermercado,
         )
 
-        val createdSeries = SeriesService.getInstance().create(series)
-        supermercado.addSeries(createdSeries)
-        StreamingServiceService.getInstance().update(supermercado)
-        val formattedData = tables.createTableFromList(createdSeries.getListOfStringFromData())
+        val createdSucursal = SucursalService.getInstace().create(sucursal)
+        supermercado.add(createdSucursal)
+      SupermercadoService.getInstance().update(supermercado)
+        val formattedData = tables.createTableFromList(createdSucursal.getListOfStringFromData())
         println(formattedData)
         println("Serie creada correctamente")
     }
 
     fun updateSucursal() {
-        val series = SeriesService.getInstance().safeGetAll()
-        if (series.isEmpty()) {
+        val sucursal = SucursalService.getInstace().safeGetAll()
+        if (sucursal.isEmpty()) {
             println("No hay series")
             return
         }
-        series.forEachIndexed { index, it -> println("${index + 1}. ${it.getTitle()}") }
+        sucursal.forEachIndexed { index, it -> println("${index + 1}. ${it.getTitle()}") }
         println("Selecciona la serie que deseas actualizar:")
         val option = readln().toInt()
-        if (option > series.size || option < 1) {
+        if (option > sucursal.size || option < 1) {
             println("Opción no válida")
             return
         }
-        val selectedSeries = series[option - 1]
+        val selectedSucursal = sucursal[option - 1]
 
-        println(tables.createTableFromList(selectedSeries.getListOfStringFromData()))
+        println(tables.createTableFromList(selectedSucursal.getListOfStringFromData()))
 
         println("Ingrese el título de la serie:")
-        val title = readln()
+        val ciudad = readln()
         println("Ingrese el género de la serie:")
-        val genre = readln()
+        val direccion = readln()
         println("¿La serie ya está finalizada? (s/n)")
-        val isFinished = readln().lowercase() == "s"
+        val servicioTecnico = readln().lowercase() == "s"
         println("Ingrese el número de temporadas de la serie:")
-        val seasons = readln().toInt()
+        val numeroEmpleados = readln().toInt()
         println("Ingrese la fecha de emision de la serie (formato: yyyy-MM-dd):")
-        val emissionDate = LocalDate.parse(readln())
+        val fechaApertura = LocalDate.parse(readln())
         println("Selecciona el servicio de streaming de la serie:")
-        val streamingServices = StreamingServiceService.getInstance().safeGetAll()
-        streamingServices.forEachIndexed { index, streamingService ->
-            println("${index + 1}. ${streamingService.getName()}")
+        val supermercadoServices = SupermercadoService.getInstance().safeGetAll()
+        supermercadoServices.forEachIndexed { index, supermercadoService ->
+            println("${index + 1}. ${supermercadoService.getNombre()}")
         }
-        val streamingServiceIndex = readln().toInt()
+        val supermercadoIndex = readln().toInt()
 
-        if (streamingServiceIndex > streamingServices.size || streamingServiceIndex < 1) {
+        if (supermercadoIndex > supermercadoServices.size || supermercadoIndex < 1) {
             println("Opción no válida")
             return
         }
 
-        val streamingService = streamingServices[streamingServiceIndex - 1]
+        val supermercado = supermercadoServices[supermercadoIndex - 1]
 
-        val updatedSeries = Serie(
-            id = selectedSeries.getId(),
-            title = title,
-            genre = genre,
-            isFinished = isFinished,
-            seasons = seasons,
-            emissionDate = emissionDate,
-            streamingService = streamingService,
+        val updatedSucursal = Sucursal(
+            id = selectedSucursal.getId(),
+            ciudad = ciudad,
+            direccion= direccion,
+            servicioTecnico = servicioTecnico,
+            numeroEmpleados = numeroEmpleados,
+            fechaApertura = fechaApertura,
+            supermercado = supermercado,
         )
 
-        val savedSerie = SeriesService.getInstance().update(updatedSeries)
-
-        if (savedSerie == null) {
+        val savedSucursal = SucursalService.getInstace().update(updatedSucursal)
+        if (savedSucursal == null) {
             println("No se pudo actualizar la serie")
             return
         }
 
-        streamingService.removeSeries(selectedSeries)
-        streamingService.addSeries(savedSerie)
-        StreamingServiceService.getInstance().update(streamingService)
+        supermercado.removerSucursales(selectedSucursal)
+        supermercado.addSucursal(savedSucursal)
+        SupermercadoService.getInstance().update(supermercado)
 
-        val formattedData = tables.createTableFromList(updatedSeries.getListOfStringFromData())
+        val formattedData = tables.createTableFromList(updatedSucursal.getListOfStringFromData())
         println(formattedData)
         println("Serie actualizada correctamente")
     }
 
     fun deleteSucursal() {
-        val series = SeriesService.getInstance().safeGetAll()
-        if (series.isEmpty()) {
+        val sucursal = SucursalService.getInstace().safeGetAll()
+        if (sucursal.isEmpty()) {
             println("No hay series")
             return
+
         }
-        series.forEachIndexed { index, it -> println("${index + 1}. ${it.getTitle()}") }
+        sucursal.forEachIndexed { index, it -> println("${index + 1}. ${it.getDireccion()}") }
         println("Selecciona la serie que deseas eliminar:")
         val option = readln().toInt()
-        if (option > series.size || option < 1) {
+        if (option > sucursal.size || option < 1) {
             println("Opción no válida")
             return
         }
-        val selectedSeries = series[option - 1]
-        val streamingService = selectedSeries.getStreamingService()
-        streamingService.removeSeries(selectedSeries)
-        StreamingServiceService.getInstance().update(streamingService)
-        SeriesService.getInstance().remove(selectedSeries.getId())
+        val selectedSucursal = sucursal[option - 1]
+        val supermercado = selectedSucursal.getSupermercado()
+        supermercado.removerSucursales(selectedSucursal)
+        SupermercadoService.getInstance().update(supermercado)
+        SucursalService.getInstace().remove(selectedSucursal.getId())
         println("Serie eliminada con éxito")
     }
+
 }
