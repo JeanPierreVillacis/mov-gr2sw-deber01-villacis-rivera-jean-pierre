@@ -1,17 +1,12 @@
 package views
 
 class ConsoleTable {
-    private val middle = "╋"
-    private val leftTop = "┏"
-    private val rightTop = "┓"
-    private val middleTop = "┳"
-    private val leftSide = "┣"
-    private val rightSide = "┫"
-    private val leftBottom = "┗"
-    private val rightBottom = "┛"
-    private val middleBottom = "┻"
-    private val horizontal = "━"
-    private val vertical = "┃"
+    private val leftTop = "*"
+    private val rightTop = "*"
+    private val leftBottom = "*"
+    private val rightBottom = "*"
+    private val horizontal = "*"
+    private val vertical = "*"
 
     fun createTableWithText(text: String): String {
         var table = leftTop

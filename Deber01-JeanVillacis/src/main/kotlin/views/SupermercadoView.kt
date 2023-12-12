@@ -30,28 +30,28 @@ class SupermercadoView {
 
     fun showStreamingServicesMenu() {
         println("Seleccione una opción:")
-        println("1. Listar servicios de streaming")
-        println("2. Crear servicio de streaming")
-        println("3. Actualizar servicio de streaming")
-        println("4. Eliminar servicio de streaming")
-        println("5. Volver atrás")
+        println("1. Listar supermercados")
+        println("2. Crear supermercado")
+        println("3. Actualizar supermercado")
+        println("4. Eliminar supermercado")
+        println("5. Regresar")
     }
 
     private fun listSupermercado() {
         val supermercadoServices = SupermercadoService.getInstance().safeGetAll()
         if (supermercadoServices.isEmpty()) {
-            println("No hay servicios de streaming")
+            println("No hay supermercados")
         } else {
             supermercadoServices.forEach { println(tables.createTableFromList(it.getListOfStringFromData())) }
         }
     }
 
     private fun createSupermercado() {
-        println("Ingrese el nombre del servicio de streaming:")
+        println("Ingrese el nombre del supermercado:")
         val nombre = readln()
-        println("Ingrese la descripción del servicio de streaming:")
+        println("Ingrese el telefono  del supermercado:")
         val telefono = readln().toInt()
-        println("Ingrese el precio del servicio de streaming:")
+        println("Vende tecnologia el supermercado (s/n):")
         val vendeTecnologia = readln().toBoolean()
 
         val supermercadoService = SupermercadosDatos(
@@ -64,18 +64,18 @@ class SupermercadoView {
         val createdSupermercado= SupermercadoService.getInstance().create(supermercadoService)
         val formattedData = tables.createTableFromList(createdSupermercado.getListOfStringFromData())
        println(formattedData)
-        println("Servicio de Streaming creado con éxito")
+        println("Supermercado creado con éxito")
     }
 
     private fun updateSupermercado() {
         val supermercados = SupermercadoService.getInstance().safeGetAll()
         if (supermercados.isEmpty()) {
-            println("No hay servicios de streaming")
+            println("No hay supermercados")
             return
         }
 
         supermercados.forEachIndexed { index, it -> println("${index + 1}. ${it.getNombre()}") }
-        println("Selecciona el servicio de streaming que deseas actualizar:")
+        println("Selecciona el supermercado que deseas actualizar:")
         val option = readln().toInt()
         if (option > supermercados.size || option < 1) {
             println("Opción no válida")
@@ -83,11 +83,11 @@ class SupermercadoView {
         }
         val selectedSupermercado = supermercados[option - 1]
         println(tables.createTableFromList(selectedSupermercado.getListOfStringFromData()))
-        println("Ingrese el nuevo nombre del servicio de streaming:")
+        println("Ingrese el nuevo nombre del supermercado:")
         val nombre = readln()
-        println("Ingrese la nueva descripción del servicio de streaming:")
+        println("Ingrese el nuevo telefono del supermercado:")
         val telefono = readln().toInt()
-        println("Ingrese el nuevo precio del servicio de streaming:")
+        println("Ingrese si venden tecnologia en el supermercado: (s/n)")
         val vendeTecnologia= readln().toBoolean()
 
         val supermercado = Supermercado(
@@ -100,23 +100,23 @@ class SupermercadoView {
 
         val updatedSupermercado = SupermercadoService.getInstance().update(supermercado)
         if (updatedSupermercado == null) {
-            println("No se pudo actualizar el servicio de streaming")
+            println("No se pudo actualizar el supermercado")
             return
         }
         val formattedData = tables.createTableFromList(updatedSupermercado.getListOfStringFromData())
         println(formattedData)
-        println("Servicio de Streaming actualizado con éxito")
+        println("Supermercado actualizado con éxito")
     }
 
     private fun deleteSupermercado() {
         val supermercado = SupermercadoService.getInstance().safeGetAll()
         if (supermercado.isEmpty()) {
-            println("No hay servicios de streaming")
+            println("No hay supermercado")
             return
 
         }
         supermercado.forEachIndexed { index, it -> println("${index + 1}. ${it.getNombre()}") }
-        println("Selecciona el servicio de streaming que deseas eliminar:")
+        println("Selecciona el supermercado que deseas eliminar:")
         val option = readln().toInt()
         if (option > supermercado.size || option < 1) {
             println("Opción no válida")
@@ -124,11 +124,11 @@ class SupermercadoView {
         }
         val selectedSupermercado = supermercado[option - 1]
         if (selectedSupermercado.getSucursales().isNotEmpty()) {
-            println("No se puede eliminar el servicio de streaming porque tiene series asociadas")
+            println("No se puede eliminar el supermercado porque tiene series asociadas")
             return
         }
         val id = selectedSupermercado.getRuc()
         SupermercadoService.getInstance().remove(id)
-        println("Servicio de Streaming eliminado con éxito")
+        println("Supermercado eliminado con éxito")
     }
 }

@@ -14,11 +14,11 @@ class SucursalView {
         var goBack = false
         do {
             println("Seleccione una opción:")
-            println("1. Listar series")
-            println("2. Crear serie")
-            println("3. Actualizar serie")
-            println("4. Eliminar serie")
-            println("5. Volver atrás")
+            println("1. Listar sucursales")
+            println("2. Crear sucursal")
+            println("3. Actualizar sucursal")
+            println("4. Eliminar sucursal")
+            println("5. Regresar")
 
             val option = readln().toInt()
             when (option) {
@@ -39,24 +39,24 @@ class SucursalView {
         val sucursales :List<Sucursal> = SucursalService.getInstace().safeGetAll()
 
         if (sucursales.isEmpty()) {
-            println("No hay series")
+            println("No hay sucursales")
         } else {
             sucursales.forEach { println(tables.createTableFromList(it.getListOfStringFromData())) }
         }
     }
 
     fun createSucursal() {
-        println("Ingrese el título de la serie:")
+        println("Ingrese la ciudad de la sucursal:")
         val ciudad = readln()
-        println("Ingrese el género de la serie:")
+        println("Ingrese la direccion de la sucursal:")
         val direccion = readln()
-        println("¿La serie ya está finalizada? (s/n)")
-        val servicioTecnico = readln().lowercase() == "s"
-        println("Ingrese el número de temporadas de la serie:")
+        println("¿La cuenta con servicio tecnico ? (s/n)")
+        val servicioTecnico = readln().toBoolean()
+        println("Ingrese el número de empleados de la sucursal:")
         val numeroEmpleados= readln().toInt()
-        println("Ingrese la fecha de emision de la serie (formato: yyyy-MM-dd):")
+        println("Ingrese la fecha de apertura de la sucursal (formato: yyyy-MM-dd):")
         val fechaApertura = LocalDate.parse(readln())
-        println("Selecciona el servicio de streaming de la serie:")
+        println("Selecciona la linea de supermercados a la que pertenece la sucursal:")
         val supermercado = SupermercadoService.getInstance().safeGetAll()
         supermercado.forEachIndexed { index, supermercado ->
             println("${index + 1}. ${supermercado.getNombre()}")
@@ -78,7 +78,7 @@ class SucursalView {
       SupermercadoService.getInstance().update(supermercados)
         val formattedData = tables.createTableFromList(createdSucursal.getListOfStringFromData())
         println(formattedData)
-        println("Serie creada correctamente")
+        println("Sucursal creada correctamente")
     }
 
     fun updateSucursal() {
@@ -88,7 +88,7 @@ class SucursalView {
             return
         }
         sucursal.forEachIndexed { index, it -> println("${index + 1}. ${it.getDireccion()}") }
-        println("Selecciona la serie que deseas actualizar:")
+        println("Selecciona la sucursal que deseas actualizar:")
         val option = readln().toInt()
         if (option > sucursal.size || option < 1) {
             println("Opción no válida")
@@ -98,17 +98,17 @@ class SucursalView {
 
         println(tables.createTableFromList(selectedSucursal.getListOfStringFromData()))
 
-        println("Ingrese el título de la serie:")
+        println("Ingrese la nueva ciudad de la sucursal:")
         val ciudad = readln()
-        println("Ingrese el género de la serie:")
+        println("Ingrese la nueva direccion de la sucursal:")
         val direccion = readln()
-        println("¿La serie ya está finalizada? (s/n)")
-        val servicioTecnico = readln().lowercase() == "s"
-        println("Ingrese el número de temporadas de la serie:")
+        println("¿La sucursal cuenta con servicio tecnico? (s/n)")
+        val servicioTecnico = readln().toBoolean()
+        println("Ingrese el nuevo número de empleados de la sucursal:")
         val numeroEmpleados = readln().toInt()
-        println("Ingrese la fecha de emision de la serie (formato: yyyy-MM-dd):")
+        println("Ingrese la nueva fecha de emision de la serie (formato: yyyy-MM-dd):")
         val fechaApertura = LocalDate.parse(readln())
-        println("Selecciona el servicio de streaming de la serie:")
+        println("Selecciona la nueva linea de supermercados a la que pertenece la sucursal:")
         val supermercadoServices = SupermercadoService.getInstance().safeGetAll()
         supermercadoServices.forEachIndexed { index, supermercadoService ->
             println("${index + 1}. ${supermercadoService.getNombre()}")
@@ -134,7 +134,7 @@ class SucursalView {
 
         val savedSucursal = SucursalService.getInstace().update(updatedSucursal)
         if (savedSucursal == null) {
-            println("No se pudo actualizar la serie")
+            println("No se pudo actualizar la sucursal")
             return
         }
 
@@ -144,18 +144,18 @@ class SucursalView {
 
         val formattedData = tables.createTableFromList(updatedSucursal.getListOfStringFromData())
         println(formattedData)
-        println("Serie actualizada correctamente")
+        println("Sucursal actualizada correctamente")
     }
 
     fun deleteSucursal() {
         val sucursal = SucursalService.getInstace().safeGetAll()
         if (sucursal.isEmpty()) {
-            println("No hay series")
+            println("No hay sucursales")
             return
 
         }
         sucursal.forEachIndexed { index, it -> println("${index + 1}. ${it.getDireccion()}") }
-        println("Selecciona la serie que deseas eliminar:")
+        println("Selecciona la sucursal que deseas eliminar:")
         val option = readln().toInt()
         if (option > sucursal.size || option < 1) {
             println("Opción no válida")
@@ -166,7 +166,7 @@ class SucursalView {
         supermercado.removerSucursales(selectedSucursal)
         SupermercadoService.getInstance().update(supermercado)
         SucursalService.getInstace().remove(selectedSucursal.getId())
-        println("Serie eliminada con éxito")
+        println("Sucursal eliminada con éxito")
     }
 
 }
