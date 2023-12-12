@@ -1,4 +1,6 @@
+import views.MainView
+
 fun main (args:Array<String>){
-    println("Hello")
+    MainView().init()
 
 }

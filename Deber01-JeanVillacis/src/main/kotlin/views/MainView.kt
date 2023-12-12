@@ -32,10 +32,10 @@ class MainView {
                         println("No existen Servicios de Streaming, primero crea uno.")
                         showAgain = true
                     } else {
-                        sucursalView.selectSMenu(this)
+                        sucursalView.selectSucursalMenu(this)
                     }
                 }
-                2 -> streamingServiceView.selectStreamingServicesMenu(this)
+                2 -> supermercadoView.selectSupermercadoMenu(this)
                 3 -> println("Hasta pronto!")
                 else -> println("Opción no válida")
             }

@@ -6,6 +6,6 @@ class SupermercadosDatos (
     val nombre: String,
     val telefono: Int,
     val vendeTecnologia: Boolean,
-    val sucursales: MutableList<Sucursal>,
+    val sucursales: List<Sucursal>,
 ){
 }

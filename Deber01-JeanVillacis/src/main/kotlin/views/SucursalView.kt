@@ -10,7 +10,7 @@ class SucursalView {
 
     val tables = ConsoleTable()
 
-    fun selectSeriesMenu(parent: MainView) {
+    fun selectSucursalMenu(parent: MainView) {
         var goBack = false
         do {
             println("Seleccione una opción:")
@@ -62,7 +62,7 @@ class SucursalView {
             println("${index + 1}. ${supermercado.getNombre()}")
         }
         val supermercadoIndex = readln().toInt() - 1
-        val supermercado = supermercado[supermercadoIndex]
+        val supermercados = supermercado[supermercadoIndex]
 
         val sucursal = SucursalesDatos(
             ciudad = ciudad,
@@ -70,12 +70,12 @@ class SucursalView {
             servicioTecnico = servicioTecnico,
             numeroEmpleados = numeroEmpleados,
             fechaApertura = fechaApertura,
-            supermercado = supermercado,
+            supermercado = supermercados,
         )
 
         val createdSucursal = SucursalService.getInstace().create(sucursal)
-        supermercado.add(createdSucursal)
-      SupermercadoService.getInstance().update(supermercado)
+        supermercados.agregarSucursales(createdSucursal)
+      SupermercadoService.getInstance().update(supermercados)
         val formattedData = tables.createTableFromList(createdSucursal.getListOfStringFromData())
         println(formattedData)
         println("Serie creada correctamente")
@@ -87,7 +87,7 @@ class SucursalView {
             println("No hay series")
             return
         }
-        sucursal.forEachIndexed { index, it -> println("${index + 1}. ${it.getTitle()}") }
+        sucursal.forEachIndexed { index, it -> println("${index + 1}. ${it.getDireccion()}") }
         println("Selecciona la serie que deseas actualizar:")
         val option = readln().toInt()
         if (option > sucursal.size || option < 1) {
@@ -139,7 +139,7 @@ class SucursalView {
         }
 
         supermercado.removerSucursales(selectedSucursal)
-        supermercado.addSucursal(savedSucursal)
+        supermercado.agregarSucursales(savedSucursal)
         SupermercadoService.getInstance().update(supermercado)
 
         val formattedData = tables.createTableFromList(updatedSucursal.getListOfStringFromData())

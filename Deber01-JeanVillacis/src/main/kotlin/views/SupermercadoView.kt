@@ -9,7 +9,7 @@ class SupermercadoView {
 
     private val tables = ConsoleTable()
 
-    fun selectStreamingServicesMenu(parent: MainView) {
+    fun selectSupermercadoMenu(parent: MainView) {
         var goBack = false
         do {
             showStreamingServicesMenu()
@@ -68,19 +68,20 @@ class SupermercadoView {
     }
 
     private fun updateSupermercado() {
-        val supermercado = SupermercadoService.getInstance().safeGetAll()
-        if (supermercado.isEmpty()) {
+        val supermercados = SupermercadoService.getInstance().safeGetAll()
+        if (supermercados.isEmpty()) {
             println("No hay servicios de streaming")
             return
         }
-        supermercado.forEachIndexed { index, it -> println("${index + 1}. ${it.getNombre()}") }
+
+        supermercados.forEachIndexed { index, it -> println("${index + 1}. ${it.getNombre()}") }
         println("Selecciona el servicio de streaming que deseas actualizar:")
         val option = readln().toInt()
-        if (option > supermercado.size || option < 1) {
+        if (option > supermercados.size || option < 1) {
             println("Opción no válida")
             return
         }
-        val selectedSupermercado = supermercado[option - 1]
+        val selectedSupermercado = supermercados[option - 1]
         println(tables.createTableFromList(selectedSupermercado.getListOfStringFromData()))
         println("Ingrese el nuevo nombre del servicio de streaming:")
         val nombre = readln()
