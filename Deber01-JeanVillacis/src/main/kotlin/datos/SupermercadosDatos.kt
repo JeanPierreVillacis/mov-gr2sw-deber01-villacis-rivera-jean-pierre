@@ -1,6 +1,6 @@
 package datos
 
-import models.Sucursal
+import modelos.Sucursal
 
 class SupermercadosDatos (
     val nombre: String,

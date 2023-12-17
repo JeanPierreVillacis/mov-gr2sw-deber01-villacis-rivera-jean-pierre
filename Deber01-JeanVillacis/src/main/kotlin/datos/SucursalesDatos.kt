@@ -1,6 +1,6 @@
 package datos
 
-import models.Supermercado
+import modelos.Supermercado
 import java.time.LocalDate
 
 class SucursalesDatos (

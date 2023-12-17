@@ -1,9 +1,9 @@
-package views
+package vistas
 
 import datos.SupermercadosDatos
-import services.SupermercadoService
-import models.Sucursal
-import models.Supermercado
+import servicios.SupermercadoService
+import modelos.Sucursal
+import modelos.Supermercado
 
 class SupermercadoView {
 

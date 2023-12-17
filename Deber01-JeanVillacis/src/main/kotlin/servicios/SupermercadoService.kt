@@ -1,6 +1,6 @@
-package services
+package servicios
 import datos.SupermercadosDatos
-import models.Supermercado
+import modelos.Supermercado
 import java.io.File
 class SupermercadoService {
 

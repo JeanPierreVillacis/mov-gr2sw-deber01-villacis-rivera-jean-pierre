@@ -1,4 +1,4 @@
-package views
+package vistas
 
 class ConsoleTable {
     private val leftTop = "*"

@@ -1,6 +1,4 @@
-package models
-
-import java.time.LocalDateTime
+package modelos
 
 class Supermercado(
     private val ruc:String,

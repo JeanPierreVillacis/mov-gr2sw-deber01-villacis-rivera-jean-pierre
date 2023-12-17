@@ -1,6 +1,6 @@
-package views
+package vistas
 
-import services.SupermercadoService
+import servicios.SupermercadoService
 
 class MainView {
     private val tables = ConsoleTable()

@@ -1,10 +1,10 @@
-package views
+package vistas
 
 import java.time.LocalDate
 import datos.SucursalesDatos
-import models.Sucursal
-import services.SupermercadoService
-import services.SucursalService
+import modelos.Sucursal
+import servicios.SupermercadoService
+import servicios.SucursalService
 
 class SucursalView {
 
